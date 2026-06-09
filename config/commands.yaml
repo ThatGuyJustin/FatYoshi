@@ -1,0 +1,7 @@
+commands:
+  global:
+    - name: ping
+      description: "Hello, anyone there?"
+      default_member_permissions: 0
+      type: 1
+      contexts: [0]

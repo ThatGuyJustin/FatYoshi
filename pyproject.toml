@@ -1,0 +1,22 @@
+[project]
+name = "fatyoshi"
+version = "1.0.0"
+description = "I am he who blubs in the night?"
+authors = [
+    {name = "Justin",email = "justin@fatyoshi.dev"}
+]
+license = {text = "MIT"}
+requires-python = ">=3.12"
+dependencies = [
+    "betterdisco-py[performace,yaml] @ git+https://github.com/elderlabs/BetterDisco.git@081dc1aed6fb21254fa26adcf745595d0f8fd2f2",
+    "feedparser (>=6.0.12,<7.0.0)",
+    "yt-dlp (>=2026.3.17,<2027.0.0)",
+    "python-dateutil (>=2.9.0.post0,<3.0.0)",
+]
+
+[project.scripts]
+bot = "disco.cli --config config/config.yaml"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

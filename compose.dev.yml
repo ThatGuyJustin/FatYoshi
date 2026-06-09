@@ -1,0 +1,11 @@
+services:
+  bot:
+    build: .
+    container_name: fatyoshi-bot
+    restart: unless-stopped
+    environment:
+      DISCORD_TOKEN: "BOT_TOKEN"
+    volumes:
+      - "./FatYoshi:/app/FatYoshi"
+      - "${PWD}/config:/app/config"
+      - "${PWD}/data:/app/data"

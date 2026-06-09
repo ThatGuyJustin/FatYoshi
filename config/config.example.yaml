@@ -1,0 +1,28 @@
+bot:
+  commands_enabled: false
+  plugins:
+    - FatYoshi.plugins.core
+    - FatYoshi.plugins.status
+    - FatYoshi.plugins.media
+
+# TODO: Properly identify correct gateway intents.
+# intents: 771
+intents: 3276799
+
+# Admin role for text commands.
+admin_role: 000000000000000000
+
+# Config for Status plugin.
+status_watching:
+  # Key is the user ID, value is the channel ID to post the message in.
+  000000000000000000: 000000000000000001
+
+# Config for Media Plugin.
+media:
+  # Sub Config for RSS Feeds
+  rss:
+    # Key is Channel ID, Value is a List of RSS feeds
+    # This example is Anime
+    000000000000000000: [ "https://www.reddit.com/r/animenews/.rss"]
+    # This example is Gaming
+    000000000000000001: [ "https://www.gamespot.com/feeds/news", "http://feeds.ign.com/ign/games-all"]
