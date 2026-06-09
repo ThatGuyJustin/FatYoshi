@@ -11,8 +11,9 @@ from FatYoshi.config import is_config_loaded, bot_config
 
 
 class MediaPlugin(Plugin):
+    loading = True
+
     def load(self, ctx):
-        self.loading = True
 
         if not is_config_loaded():
             self.log.error("Bot config not loaded, unloading plugin.")
@@ -36,7 +37,7 @@ class MediaPlugin(Plugin):
         self.log.info(f"Loaded {len(self.rss_config)} RSS Feeds")
 
         try:
-            with open('data/rss_cache.json', 'r') as f:
+            with open('./data/rss_cache.json', 'r') as f:
                 self.rss_cache = json.load(f)
         except FileNotFoundError:
             pass
@@ -47,12 +48,12 @@ class MediaPlugin(Plugin):
 
     def unload(self, ctx):
 
-        # Skip the extra IO is not needed.
-        if self.rss_cache == {}:
+        # Skip, extra IO is not needed.
+        if not len(self.rss_cache):
             return super(MediaPlugin, self).unload(ctx)
 
         self.log.info("Saving rss news cache")
-        with open('data/rss_cache.json', 'w') as f:
+        with open('./data/rss_cache.json', 'w') as f:
             json.dump(self.rss_cache, f)
 
         return super(MediaPlugin, self).unload(ctx)
@@ -61,6 +62,9 @@ class MediaPlugin(Plugin):
     # TODO: Refactor.
     @Plugin.schedule(300)
     def check_rss(self):
+
+        if self.loading:
+            return
 
         def pubdate_to_timestamp(pub_date):
             return int(parser.parse(pub_date).timestamp())

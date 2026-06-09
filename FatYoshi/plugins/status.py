@@ -42,7 +42,7 @@ class StatusPlugin(Plugin):
         self.log.info(f"Loaded {len(self.users)} users")
 
         try:
-            with open('data/status_cache.json', 'r') as f:
+            with open('./data/status_cache.json', 'r') as f:
                 cache = json.load(f)
                 self.cache = cache
         except FileNotFoundError:
@@ -52,13 +52,13 @@ class StatusPlugin(Plugin):
 
     def unload(self, ctx):
 
-        # Skip the extra IO is not needed.
-        if self.cache == {}:
+        # Skip, extra IO is not needed.
+        if not len(self.cache):
             return super(StatusPlugin, self).unload(ctx)
 
         self.log.info("Saving status cache")
 
-        with open('data/status_cache.json', 'w') as f:
+        with open('./data/status_cache.json', 'w') as f:
             json.dump(self.cache, f)
 
         return super(StatusPlugin, self).unload(ctx)
@@ -67,7 +67,7 @@ class StatusPlugin(Plugin):
         for channel in self.users[user.id]:
             api_channel = self.client.api.channels_get(channel)
             _format = f"> {status}\n-# {user.mention} –– <t:{int(datetime.now().timestamp())}:s>"
-            msg = channel.send_message(_format, allowed_mentions={})
+            msg = api_channel.send_message(_format, allowed_mentions={})
 
             # Auto-Publish Post.
             if api_channel.type == ChannelType.GUILD_ANNOUNCEMENT:
