@@ -8,6 +8,7 @@ bot:
 # TODO: Properly identify correct gateway intents.
 # intents: 771
 intents: 3276799
+gateway_version: 10
 
 # Admin role for text commands.
 admin_role: 000000000000000000
